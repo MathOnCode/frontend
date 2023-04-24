@@ -41,7 +41,7 @@ function App() {
         phone: userData.phone
       });
       handleCleaning();
-      alert("enviado");
+      alert("Formulário enviado!");
     }
     catch (error){
       alert(error.response.data.detail);
