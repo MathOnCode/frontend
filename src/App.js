@@ -1,6 +1,8 @@
 import './App.css';
 import axios from 'axios';
 import { useState } from 'react';
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -23,6 +25,9 @@ function App() {
       email: '',
       phone: ''
     })
+
+    toast.info("formulário limpo!", {
+    autoClose: 2000});
   }
 
   function handleChange(event){
@@ -40,11 +45,31 @@ function App() {
         email: userData.email,
         phone: userData.phone
       });
-      handleCleaning();
-      alert("Formulário enviado!");
+      //handleCleaning();
+      toast.success("formulário enviado!", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
     catch (error){
-      alert(error.response.data.detail);
+      for (var i = 0; i < error.response.data.detail.length; i++){
+        toast.error(error.response.data.detail[i], {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+      }
     }
     finally{
       setLoading(false);
@@ -80,6 +105,7 @@ function App() {
       </div>
     </form>
     </div>
+    <ToastContainer/>
     </body>
   );
 }
