@@ -33,7 +33,7 @@ input {
   margin-bottom: 5px;
 }
 
-button {
+.primaryButton {
   width: 30%;
   font-weight: bold;
   color: white;
@@ -41,6 +41,22 @@ button {
   border: none;
   border-radius: 25px;
   margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  width: 30%;
+  font-weight: bold;
+  color: #196cd3;
+  background-color: white;
+  border: 1px solid #196cd3;
+  border-radius: 25px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   padding: 8px 20px;
   cursor: pointer;
 }

@@ -27,7 +27,7 @@ function App() {
     })
 
     toast.info("formulário limpo!", {
-    autoClose: 2000});
+    autoClose: 5000});
   }
 
   function handleChange(event){
@@ -48,7 +48,7 @@ function App() {
       //handleCleaning();
       toast.success("formulário enviado!", {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -61,7 +61,7 @@ function App() {
       for (var i = 0; i < error.response.data.detail.length; i++){
         toast.error(error.response.data.detail[i], {
           position: "top-right",
-          autoClose: 2000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -78,34 +78,30 @@ function App() {
 
   return (
     <body>
-    <div className="App">
-    <form>
-      <div>
-        <div>
-          <h1>Formulário</h1>
-        </div>
-        <text>Nome</text>
-        <div>
-          <input placeholder="insira seu nome" name="name" value={userData.name} onChange={handleChange}></input>
-        </div>
-        <text>Email</text>
-        <div>
-          <input placeholder="exemplo@email.com" name="email" value={userData.email} onChange={handleChange}></input>
-        </div>
-        <text>Telefone</text>
-        <div>
-          <input mask="(99) 99999-9999" placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></input>
-        </div>
-        <div>
-          <button type="button" disabled = {loading ? true : false } onClick={handleSubmit}>{loading ? "Enviando..." : "Enviar" }</button> 
-        </div> 
-        <div>
-          <button type="button" disabled = {loading ? true : false } onClick={handleCleaning}>Limpar</button>
-        </div>
+      <div className="App">
+        <form>
+          <div>
+            <div>
+              <h1>Formulário</h1>
+            </div>
+            <text>Nome</text>
+            <div>
+              <input placeholder="insira seu nome" name="name" value={userData.name} onChange={handleChange}></input>
+            </div>
+            <text>Email</text>
+            <div>
+              <input placeholder="exemplo@email.com" name="email" value={userData.email} onChange={handleChange}></input>
+            </div>
+            <text>Telefone</text>
+            <div>
+              <input mask="(99) 99999-9999" placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></input>
+            </div>
+              <button type="button" className="primaryButton" disabled = {loading ? true : false } onClick={handleSubmit}>{loading ? "Enviando..." : "Enviar" }</button>
+              <button type="button" className="secondaryButton" disabled = {loading ? true : false } onClick={handleCleaning}>Limpar</button> 
+          </div>
+        </form>
       </div>
-    </form>
-    </div>
-    <ToastContainer/>
+      <ToastContainer/>
     </body>
   );
 }
