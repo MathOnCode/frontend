@@ -84,20 +84,20 @@ function App() {
             <div>
               <h1>Formulário</h1>
             </div>
-            <text>Nome</text>
+            <label>Nome</label>
             <div>
               <input placeholder="insira seu nome" name="name" value={userData.name} onChange={handleChange}></input>
             </div>
-            <text>Email</text>
+            <label>Email</label>
             <div>
               <input placeholder="exemplo@email.com" name="email" value={userData.email} onChange={handleChange}></input>
             </div>
-            <text>Telefone</text>
+            <label>Telefone</label>
             <div>
               <input mask="(99) 99999-9999" placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></input>
             </div>
-              <button type="button" className="primaryButton" disabled = {loading ? true : false } onClick={handleSubmit}>{loading ? "Enviando..." : "Enviar" }</button>
               <button type="button" className="secondaryButton" disabled = {loading ? true : false } onClick={handleCleaning}>Limpar</button> 
+              <button type="button" className="primaryButton" disabled = {loading ? true : false } onClick={handleSubmit}>{loading ? "Enviando..." : "Enviar" }</button>
           </div>
         </form>
       </div>
