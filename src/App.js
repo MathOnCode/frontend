@@ -16,6 +16,12 @@ function App() {
     email: '',
     phone: ''
   });
+
+  const [errors, setErros] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
   
   const [loading, setLoading] = useState();
 
@@ -26,8 +32,14 @@ function App() {
       phone: ''
     })
 
+    setErros({
+      name: '',
+      email: '',
+      phone: ''
+    })
+
     toast.info("formulário limpo!", {
-    autoClose: 5000});
+    autoClose: 8000})
   }
 
   function handleChange(event){
@@ -35,33 +47,50 @@ function App() {
     setUserData({ ...userData, [name]: value })
   }
 
+  function formValidation() {
+    const regexName = /^[A-Za-z]+(?:\s+[A-Za-z]+)*\s+[A-Za-z]+$/;
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexPhone = /^\(\d{2}\)\s\d{4,5}\-\d{4}$/;
+
+    let checkErros = {}
+    let verify = true;
+  
+    if (!regexName.test(userData.name)) {
+      checkErros = {...checkErros, name: "Nome inválido!"};
+      verify = false;
+    }
+  
+    if (!regexEmail.test(userData.email)) {
+      checkErros = {...checkErros, email: "E-mail inválido!"};
+      verify = false;
+    }
+  
+    if (!regexPhone.test(userData.phone)) {
+      checkErros = {...checkErros, phone: "Telefone inválido!"};
+      verify = false;
+    }
+  
+    setErros(checkErros);
+    return verify;
+  }
+  
+
   async function handleSubmit(event){
     event.preventDefault();
-    setLoading(true);
-    
-    try{
-      await axios.post(url, {
-        name: userData.name,
-        email: userData.email,
-        phone: userData.phone
-      });
-      //handleCleaning();
-      toast.success("formulário enviado!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+    const isValid = formValidation();
+    if(isValid){
+      try{
+        await axios.post(url, {
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone
         });
-    }
-    catch (error){
-      for (var i = 0; i < error.response.data.detail.length; i++){
-        toast.error(error.response.data.detail[i], {
+
+        setLoading(true);
+
+        toast.success("formulário enviado!", {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 8000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -69,10 +98,28 @@ function App() {
           progress: undefined,
           theme: "light",
           });
+
+          setUserData({
+            name: '',
+            email: '',
+            phone: ''
+          })
       }
-    }
-    finally{
-      setLoading(false);
+      catch (error){
+        toast.error("Erro ao enviar formulário!", {
+          position: "top-right",
+          autoClose: 8000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
+      finally{
+        setLoading(false);
+      }
     }
   }
 
@@ -87,14 +134,23 @@ function App() {
             <label>Nome</label>
             <div>
               <input placeholder="insira seu nome" name="name" value={userData.name} onChange={handleChange}></input>
+              <div>
+                <span>{errors.name}</span>
+              </div>
             </div>
             <label>Email</label>
             <div>
               <input placeholder="exemplo@email.com" name="email" value={userData.email} onChange={handleChange}></input>
+              <div>
+                <span>{errors.email}</span>
+              </div>
             </div>
             <label>Telefone</label>
             <div>
               <input mask="(99) 99999-9999" placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></input>
+              <div>
+                <span>{errors.phone}</span>
+              </div>
             </div>
               <button type="button" className="secondaryButton" disabled = {loading ? true : false } onClick={handleCleaning}>Limpar</button> 
               <button type="button" className="primaryButton" disabled = {loading ? true : false } onClick={handleSubmit}>{loading ? "Enviando..." : "Enviar" }</button>
