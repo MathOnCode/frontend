@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useState } from 'react';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import InputMask from 'react-input-mask';
 
 
 
 
 function App() {
 
-    const url = "http://127.0.0.1:8000";
+    const url = "http://127.0.0.1:8000/request";
 
     const [userData, setUserData] = useState({
     name: '',
@@ -24,6 +25,8 @@ function App() {
   });
   
   const [loading, setLoading] = useState();
+  //const [mask, setMask] = useState();
+  let mask = "(99) 99999-9999";
 
   function handleCleaning(){
     setUserData({
@@ -45,9 +48,19 @@ function App() {
   function handleChange(event){
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value })
+
+      if (userData.phone === 0) {
+       mask = "";
+      }
+      else if (userData.phone === 8) {
+        mask = "(99) 9999-9999";
+      }
+      else if (userData.phone === 9) {
+        mask = "(99) 99999-9999";
+      }
   }
 
-  function formValidation() {
+  /*function formValidation() {
     const regexName = /^[A-Za-z]+(?:\s+[A-Za-z]+)*\s+[A-Za-z]+$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexPhone = /^\(\d{2}\)\s\d{4,5}\-\d{4}$/;
@@ -72,13 +85,13 @@ function App() {
   
     setErros(checkErros);
     return verify;
-  }
+  }*/
   
 
   async function handleSubmit(event){
     event.preventDefault();
-    const isValid = formValidation();
-    if(isValid){
+    /*const isValid = formValidation();
+    if(isValid){*/
       try{
         await axios.post(url, {
           name: userData.name,
@@ -120,7 +133,7 @@ function App() {
       finally{
         setLoading(false);
       }
-    }
+    //}
   }
 
   return (
@@ -147,7 +160,7 @@ function App() {
             </div>
             <label>Telefone</label>
             <div>
-              <input mask="(99) 99999-9999" placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></input>
+              <InputMask mask={mask} placeholder="(00) 00000-0000" name="phone" value={userData.phone} onChange={handleChange}></InputMask>
               <div>
                 <span>{errors.phone}</span>
               </div>

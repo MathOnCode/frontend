@@ -15,10 +15,6 @@ body {
   background-image: linear-gradient(to right, #1b76e6, #12e5cf);
 }
 
-form {
-  margin: auto;
-}
-
 h1 {
   margin-bottom: 30px;
 }
