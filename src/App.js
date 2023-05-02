@@ -112,11 +112,11 @@ function App() {
           theme: "light",
           });
 
-          setUserData({
+          /*setUserData({
             name: '',
             email: '',
             phone: ''
-          })
+          })*/
       }
       catch (error){
         toast.error("Erro ao enviar formulário!", {
