@@ -10,7 +10,7 @@ import InputMask from 'react-input-mask';
 
 function App() {
 
-    const url = "http://127.0.0.1:8000/request";
+    const url = "http://127.0.0.1:8000";
 
     const [userData, setUserData] = useState({
     name: '',
@@ -49,7 +49,7 @@ function App() {
     const { name, value } = event.target;
     setUserData({ ...userData, [name]: value })
 
-      if (userData.phone === 0) {
+      /*if (userData.phone === 0) {
        mask = "";
       }
       else if (userData.phone === 8) {
@@ -57,7 +57,7 @@ function App() {
       }
       else if (userData.phone === 9) {
         mask = "(99) 99999-9999";
-      }
+      }*/
   }
 
   /*function formValidation() {
