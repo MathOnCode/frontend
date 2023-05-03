@@ -19,7 +19,7 @@ function App() {
   });
 
   const [errors, setErros] = useState({
-    name: '',
+    name: '', //renomear
     email: '',
     phone: ''
   });
