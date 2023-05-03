@@ -19,10 +19,9 @@ function App() {
   });
 
   const [errors, setErros] = useState({
-    name: '', //renomear
-    email: '',
-    phone: ''
-  });
+    errorName: '', //renomear
+    errorEmail: '',
+    errorPhone: ''  });
   
   const [loading, setLoading] = useState();
   //const [mask, setMask] = useState();
@@ -36,9 +35,9 @@ function App() {
     })
 
     setErros({
-      name: '',
-      email: '',
-      phone: ''
+      errorName: '',
+      errorEmail: '',
+      errorPhone: ''    
     })
 
     toast.info("formulário limpo!", {
@@ -61,7 +60,7 @@ function App() {
   }
 
   /*function formValidation() {
-    const regexName = /^[A-Za-z]+(?:\s+[A-Za-z]+)*\s+[A-Za-z]+$/;
+    const regexName = /^[A-zÁ-õç]+(?:\s+[A-zÁ-õç]+)*\s+[A-zÁ-õç]+$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexPhone = /^\(\d{2}\)\s\d{4,5}\-\d{4}$/;
 
@@ -74,7 +73,7 @@ function App() {
     }
   
     if (!regexEmail.test(userData.email)) {
-      checkErros = {...checkErros, email: "E-mail inválido!"};
+      checkErros = {...checkErros, email: "Email inválido!"};
       verify = false;
     }
   
@@ -93,13 +92,14 @@ function App() {
     /*const isValid = formValidation();
     if(isValid){*/
       try{
+        
+        setLoading(true);
+
         await axios.post(url, {
           name: userData.name,
           email: userData.email,
           phone: userData.phone
         });
-
-        setLoading(true);
 
         toast.success("formulário enviado!", {
           position: "top-right",
@@ -132,8 +132,8 @@ function App() {
       }
       finally{
         setLoading(false);
-      }
-    //}
+      //}
+    }
   }
 
   return (
