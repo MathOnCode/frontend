@@ -59,8 +59,8 @@ function App() {
       }*/
   }
 
-  /*function formValidation() {
-    const regexName = /^[A-zÁ-õç]+(?:\s+[A-zÁ-õç]+)*\s+[A-zÁ-õç]+$/;
+  function formValidation() {
+    const regexName = /^[A-zÁ-ûç]+(?:\s+[A-zÁ-ûç]+)*\s+[A-zÁ-ûç]+$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexPhone = /^\(\d{2}\)\s\d{4,5}\-\d{4}$/;
 
@@ -84,13 +84,13 @@ function App() {
   
     setErros(checkErros);
     return verify;
-  }*/
+  }
   
 
   async function handleSubmit(event){
     event.preventDefault();
-    /*const isValid = formValidation();
-    if(isValid){*/
+    const isValid = formValidation();
+    if(isValid){
       try{
         
         setLoading(true);
@@ -112,11 +112,11 @@ function App() {
           theme: "light",
           });
 
-          /*setUserData({
+          setUserData({
             name: '',
             email: '',
             phone: ''
-          })*/
+          })
       }
       catch (error){
         toast.error("Erro ao enviar formulário!", {
@@ -132,7 +132,7 @@ function App() {
       }
       finally{
         setLoading(false);
-      //}
+      }
     }
   }
 
